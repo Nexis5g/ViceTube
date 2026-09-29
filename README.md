@@ -1,3 +1,4 @@
+https://nexis5g.github.io/ViceTube/
 # ViceTube — инструкция по сайту
 
 ## 1. О сайте
