@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Личный кабинет — ViceTube</title>
+<link rel="icon" type="image/png" href="logo.png">
+<style>
+  
+*{box-sizing:border-box}
+body{
+margin:0;
+background:#0f0f0f;
+color:#fff;
+font-family:Arial,Helvetica,sans-serif;
+min-height:100vh}
+
+header{
+position:sticky;
+top:12px;margin:0 2vw;
+z-index:5;
+background:rgba(32,32,32,.72);
+backdrop-filter:blur(20px);
+border:1px solid #ffffff20;
+border-radius:18px;
+box-shadow:0 12px 35px #0006}
+
+.header-inner{
+min-height:60px;
+display:flex;
+align-items:center;
+justify-content:center;
+position:relative;
+gap:18px;padding:10px 14px}
+
+.logo{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:9px;position:absolute;
+left:550%;top:50%;
+transform:translate(-50%,-50%);
+color:#b000ff;
+text-decoration:none;
+font-weight:700;font-size:21px}
+
+.logo img{
+width:36px;
+height:36px;
+border-radius:9px}
+
+.back{
+color:#fff;
+text-decoration:none;
+margin-left:auto;
+position:relative;
+z-index:2;padding:10px 14px;
+border-radius:9px;
+background:#ffffff10}
+
+.page{
+max-width:1050px;
+margin:35px auto;
+padding:0 18px 50px}
+
+.hero{
+position:relative;
+overflow:hidden;
+min-height:240px;
+border-radius:20px;
+background:#fff;
+border:1px solid #ffffff14;
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat}
+
+.hero::after{
+content:"";
+display:none}
+
+.profile{
+position:relative;
+z-index:1;
+margin-top:-76px;
+padding:0 25px 25px}
+
+.avatar{
+width:110px;
+height:110px;
+border-radius:50%;
+border:4px solid #111;
+background:#333;
+object-fit:cover;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:48px}
+
+.profile h1{
+margin:12px 0 5px;
+font-size:30px}
+
+.bio{
+color:#bbb;
+max-width:700px;
+white-space:pre-wrap}
+
+.stats{
+display:flex;
+flex-wrap:wrap;
+gap:12px;margin-top:18px}
+
+.stat{
+background:#191919;
+border:1px solid #ffffff10;
+border-radius:12px;padding:13px 18px}
+
+.stat b{
+display:block;
+font-size:20px}
+
+.stat span{
+color:#999;
+font-size:13px}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:18px;margin-top:22px}
+
+.panel{
+background:#181818;
+border-radius:16px;padding:22px;
+border:1px solid #ffffff0d}
+
+.panel h2{
+margin:0 0 17px;
+font-size:20px}
+
+label{
+display:block;
+color:#aaa;
+font-size:13px;
+margin:13px 0 7px}
+
+input,textarea{
+width:100%;
+border:1px solid #ffffff12;
+border-radius:9px;background:#252525;
+color:#fff;
+padding:12px;
+font:inherit;
+outline:none}
+
+textarea{
+min-height:95px;
+resize:vertical}
+
+input:focus,textarea:focus{
+border-color:#a600ff88}
+
+.row{
+display:flex;
+gap:10px;
+align-items:center}
+
+.color{
+width:58px;
+height:42px;
+padding:4px}
+
+.button{
+margin-top:15px;
+border:0;
+border-radius:9px;
+padding:12px 17px;
+background:#a600ff;
+color:#fff;
+font-weight:700;
+cursor:pointer}
+
+.button.secondary{
+background:#292929}
+
+.avatar-preview{
+width:44px;
+height:44px;
+border-radius:50%;
+object-fit:cover;
+background:#333}
+
+.hint{
+color:#777;
+font-size:12px;
+margin-top:7px}
+
+.message{
+margin-top:12px;
+color:#bfffc7;
+min-height:18px}
+
+@media(max-width:700px){
+
+.grid{
+grid-template-columns:1fr}
+
+.page{
+margin-top:22px}
+
+.hero{
+min-height:190px;
+background-size:cover;
+background-position:center}
+
+.profile{
+padding:0 16px 20px}
+
+.avatar{
+width:88px;
+height:88px;
+font-size:38px}
+}
+
+</style>
+</head>
+<body>
+<header><div class="header-inner"><a class="logo" href="index.html"><img src="logo.png">ViceTube</a><a class="back" href="index.html">← На главную</a></div></header>
+<main class="page">
+  <section class="hero" id="hero"></section>
+  <section class="profile">
+    <img class="avatar" id="profileAvatar" alt="Аватар">
+    <h1 id="profileName">Пользователь</h1>
+    <div class="bio" id="profileBio">Расскажите немного о себе.</div>
+    <div class="stats">
+      <div class="stat"><b id="statVideos">0</b><span>видео</span></div>
+      <div class="stat"><b id="statViews">0</b><span>просмотров</span></div>
+      <div class="stat"><b id="statComments">0</b><span>комментариев</span></div>
+    </div>
+  </section>
+
+  <div style="margin-top:18px"><a class="button" style="display:inline-block;text-decoration:none" id="myChannelLink" href="channel.html">Открыть мой канал</a></div>
+
+  <div class="grid">
+    <section class="panel">
+      <h2>Личный кабинет</h2>
+      <label for="username">Имя пользователя</label>
+      <input id="username" maxlength="40" placeholder="Ваше имя">
+      <label for="bio">О себе</label>
+      <textarea id="bio" maxlength="500" placeholder="Коротко расскажите о себе"></textarea>
+      <label for="channelName">Название канала</label>
+      <input id="channelName" maxlength="50" placeholder="Название вашего канала">
+      <button class="button" id="save">Сохранить изменения</button>
+      <div class="message" id="message"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Кастомизация профиля</h2>
+      <label>Цвет акцента</label>
+      <div class="row"><input class="color" type="color" id="accent"><span class="hint">Меняет цвет кнопок и элементов профиля</span></div>
+      <label for="avatarFile">Аватар</label>
+      <div class="row"><img class="avatar-preview" id="avatarPreview"><input id="avatarFile" type="file" accept="image/png,image/jpeg,image/webp"></div>
+      <div class="hint">Изображение хранится локально в браузере.</div>
+      <label for="bannerFile">Обложка профиля</label>
+      <input id="bannerFile" type="file" accept="image/png,image/jpeg,image/webp">
+      <div class="hint">Выберите свою обложку для верхней части профиля.</div>
+      <button class="button secondary" id="resetStyle">Сбросить оформление</button>
+    </section>
+  </div>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+function getAccount(){try{return JSON.parse(localStorage.getItem('account'))||null}catch(e){return null}}
+function saveAccount(a){localStorage.setItem('account',JSON.stringify(a))}
+function fmt(n){return new Intl.NumberFormat('ru-RU').format(Number(n)||0)}
+function getJSON(key){try{return JSON.parse(localStorage.getItem(key))||{}}catch(e){return {}}}
+function avatarFor(a){return a.avatar||''}
+function initials(name){return (name||'П').trim().slice(0,1).toUpperCase()}
+function render(){
+ const a=getAccount(); if(!a){location.href='login.html';return}
+ $('username').value=a.username||'';$('bio').value=a.bio||'';$('channelName').value=a.channelName||a.username||'';$('accent').value=a.accent||'#a600ff';
+ $('profileName').textContent=a.username||'Пользователь';$('profileBio').textContent=a.bio||'Расскажите немного о себе.';
+ const av=avatarFor(a); if(av){$('profileAvatar').src=av;$('avatarPreview').src=av}else{$('profileAvatar').src='Guest.jpg';$('avatarPreview').src='Guest.jpg'}
+ $('profileAvatar').style.background=a.accent||'#333'; $('hero').style.backgroundImage=a.banner?`url("${a.banner}")`:'none'; $('hero').style.backgroundColor='#fff'; $('hero').style.backgroundSize='cover'; $('hero').style.backgroundPosition='center'; $('hero').style.backgroundRepeat='no-repeat';
+ const uploaded=JSON.parse(localStorage.getItem('uploadedVideos')||'[]');
+ const views=getJSON('videoViews'); const comments=getJSON('videoComments');
+ const mine=uploaded.filter(v=>v.owner===a.username || v.author===a.username);
+ let viewCount=0; mine.forEach(v=>viewCount+=Number(views[v.id])||0);
+ let commentCount=0; Object.values(comments).forEach(list=>{if(Array.isArray(list))list.forEach(c=>{if(c.author===a.username)commentCount++})});
+ $('statVideos').textContent=fmt(mine.length);$('statViews').textContent=fmt(viewCount);$('statComments').textContent=fmt(commentCount);
+ document.documentElement.style.setProperty('--accent',a.accent||'#a600ff');
+ $('myChannelLink').href='channel.html?id='+encodeURIComponent(a.channelId||a.username);
+ document.querySelectorAll('.button').forEach(b=>{if(!b.classList.contains('secondary'))b.style.background=a.accent||'#a600ff'});
+}
+function readFile(file,cb){if(!file)return;const r=new FileReader();r.onload=()=>{cb(r.result)};r.readAsDataURL(file)}
+$('avatarFile').onchange=e=>readFile(e.target.files[0],data=>{let a=getAccount();a.avatar=data;saveAccount(a);render()});
+$('bannerFile').onchange=e=>readFile(e.target.files[0],data=>{let a=getAccount();a.banner=data;saveAccount(a);render()});
+$('save').onclick=()=>{let a=getAccount();if(!a)return;const name=$('username').value.trim();if(!name){$('message').textContent='Введите имя пользователя.';return}a.username=name;a.bio=$('bio').value.trim();a.channelName=$('channelName').value.trim()||name;a.channelId=a.channelId||name.toLowerCase().replace(/[^a-z0-9а-яё]+/gi,'-').replace(/^-+|-+$/g,'');a.accent=$('accent').value||'#a600ff';saveAccount(a);$('message').textContent='Профиль сохранён.';render()};
+$('resetStyle').onclick=()=>{let a=getAccount();if(!a)return;delete a.avatar;delete a.banner;a.accent='#a600ff';saveAccount(a);render();$('message').textContent='Оформление сброшено.'};
+render();
+</script>
+<script src="site-profile.js"></script>
+</body>
+</html>

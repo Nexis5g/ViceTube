@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>История</title>
+
+<style>
+body{
+  margin:0;
+  background:#0f0f0f;
+  color:white;
+  font-family:Arial;}
+  
+header{
+  background:#202020;
+  padding:15px 25px;}
+  
+.videos{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,320px));
+  justify-content:start;
+  gap:20px;
+  padding:20px;
+  width:100%;
+  max-width:1400px;
+  margin:0 auto;}
+
+.card{
+  width:100%;
+  background:#181818;
+  border-radius:12px;
+  overflow:hidden;}
+  
+.thumbnail{
+  width:100%;
+  aspect-ratio:16 / 9;
+  height:auto;
+  object-fit:cover;
+  display:block;}
+  
+@media (max-width:700px){
+.videos{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+  padding:12px;}
+    }
+
+@media (max-width:480px){
+.videos{
+  grid-template-columns:1fr;}
+    }
+
+</style>
+<link rel="icon" type="image/png" href="logo.png">
+</head>
+<body>
+
+<header>
+<a href="index.html" style="color:white;text-decoration:none">
+  ← Главная
+</a>
+</header>
+
+<div class="videos" id="historyList"></div>
+
+<script>
+
+let account =
+JSON.parse(localStorage.getItem("account"));
+
+if(!account){
+
+location.href = "login.html";
+}
+
+const history =
+account.history || [];
+
+function getThumbCache(){
+try { return JSON.parse(localStorage.getItem("videoThumbnails")) || {}; } catch(e){ return {}; }
+}
+function saveThumb(file, data){
+try { const c=getThumbCache(); c[file]=data; localStorage.setItem("videoThumbnails",JSON.stringify(c)); } catch(e) {}
+}
+function generateThumbnail(video, img){
+const c=getThumbCache(); if(c[video.file]){img.src=c[video.file];return;}
+const probe=document.createElement("video"); probe.preload="metadata"; probe.muted=true; probe.playsInline=true; probe.src=video.file;
+probe.addEventListener("loadedmetadata",()=>{try{probe.currentTime=Math.min(.5,Math.max(0,(probe.duration||1)*.05));}catch(e){capture();}},{once:true});
+probe.addEventListener("seeked",capture,{once:true}); probe.addEventListener("error",()=>probe.remove(),{once:true});
+function capture(){ if(!probe.videoWidth||!probe.videoHeight){probe.remove();return;} const canvas=document.createElement("canvas"); canvas.width=640; canvas.height=Math.round(640*probe.videoHeight/probe.videoWidth); canvas.getContext("2d").drawImage(probe,0,0,canvas.width,canvas.height); const data=canvas.toDataURL("image/jpeg",.82); img.src=data; saveThumb(video.file,data); probe.remove(); }
+}
+
+fetch("videos.json")
+
+.then(res => res.json())
+
+.then(videos => {
+
+const uploadedVideos =
+
+JSON.parse(
+localStorage.getItem("uploadedVideos")
+) || [];
+
+const allVideos = [
+
+...videos,
+
+...uploadedVideos
+
+];
+
+const container =
+
+document.getElementById("historyList");
+
+history.reverse().forEach(id => {
+
+const video =
+
+allVideos.find(v => v.id == id);
+
+if(video){
+
+container.innerHTML += `
+
+<a
+href="watch.html?id=${video.id}"
+
+style="
+text-decoration:none;
+color:white;">
+
+<div class="card">
+
+<img loading="lazy"
+
+class="thumbnail"
+data-video-file="${video.file}"
+
+src="
+${video.poster || "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%271600%27 height=%27900%27%3E%3Crect width=%27100%25%27 height=%27100%25%27 fill=%27black%27/%3E%3C/svg%3E"}">
+
+<div style="padding:14px">
+
+<h3>${video.title}</h3>
+
+<p style="color:#aaa">
+  Просмотрено
+</p>
+
+</div>
+  </div>
+        </a>
+      `;
+const img = container.lastElementChild.querySelector(".thumbnail");
+if(img) generateThumbnail(video, img);}
+  });
+});
+
+</script>
+</body>
+</html>

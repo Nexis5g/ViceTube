@@ -1,0 +1,93 @@
+[
+  {
+    "id": "под-датой",
+    "name": "под датой",
+    "description": "Наблюдай ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+    "avatar": "avatars/channels1_profile.jpg",
+    "banner": "baners/channels1_banner.jpg"
+  },
+  {
+    "id": "stopgame",
+    "name": "StopGame",
+    "description": "Добро пожаловать на официальный YouTube-канал StopGame.ru! 🎮 Здесь мы делимся с вами самыми актуальными новостями, обзорами, трейлерами и эксклюзивными материалами из мира видеоигр. Наша команда обеспечивает анализ игр, исключительное качество контента и разнообразие форматов для каждого геймера.",
+    "avatar": "avatars/channels2_profile.jpg",
+    "banner": "baners/channels2_banner.jpg"
+  },
+  {
+    "id": "dino-t-rex",
+    "name": "Dino-T-Rex",
+    "description": "Только Честные и Актуальные обзоры и сравнения техники 😎 ",
+    "avatar": "avatars/channels5_profile.jpg",
+    "banner": "baners/channels5_banner.jpg"
+  },
+  {
+    "id": "вымершийзоопарк",
+    "name": "ВымершийЗоопарк",
+    "description": "Добро пожаловать в ВымершийЗоопарк! Если вы интересуетесь динозаврами, палеонтологией или просто чем-то вымершим (и я имею в виду абсолютно всё), то вы попали по адресу. Я стремлюсь предоставить простую, но содержательную информацию о мире и его обитателях, живших тысячи, миллионы и миллиарды лет назад. Я очень надеюсь, что вам понравится контент, и вы останетесь с нами 🦖",
+    "avatar": "avatars/channels4_profile.jpg",
+    "banner": "baners/channels4_banner.jpg"
+  },
+  {
+    "id": "marm",
+    "name": "marm",
+    "description": "честный, объективный, неподкупный - это все вообще не про меня",
+    "avatar": "avatars/channels7_profile.jpg",
+    "banner": ""
+  },
+  {
+    "id": "tap-tap",
+    "name": "Tap-Tap",
+    "description": "Этот канал - про моё хобби: портативные консоли, ретро-игры и всё, что с этим связано.",
+    "avatar": "avatars/channels9_profile.jpg",
+    "banner": ""
+  },
+  {
+    "id": "windy31",
+    "name": "windy31",
+    "description": "Всем бобра, дорогие друзья, с вами Винди, и на этом канале я прохожу всякие игры, делаю различные теории, монтажики, и просто веселюсь! Здесь есть все: от вкусных печенек и чая до ламповой атмосферы и настроения на целый день! :D ",
+    "avatar": "avatars/unnamed.jpg",
+    "banner": "baners/unnamed.jpg"
+  },
+  {
+    "id": "oldtimer",
+    "name": "OlDTimer",
+    "description": "Здесь ретро и не только. Разбор портов игр на ретро-консолях, обзоры технических решений, Замеры фреймрейта с помощью собственного решения FrameC-App.",
+    "avatar": "avatars/channels3_profile.jpg",
+    "banner": "baners/channels3_banner.jpg"
+  },
+  {
+    "id": "vicetube",
+    "name": "ViceTube",
+    "description": "Канал ViceTube. Здесь хранятся видео загруженные системой",
+    "avatar": "Guest.jpg",
+    "banner": ""
+  },
+  {
+    "id": "KawoDeda",
+    "name": "KawoDeda",
+    "description": "№ 5363424661 Шо вы? Ждёте?",
+    "avatar": "avatars/channels8_profile.jpg",
+    "banner": "baners/channels8_banner.jpg"
+  },
+  {
+    "id": "Maloxit-Show",
+    "name": "Maloxit Show",
+    "description": "Нефициальный развлекательно-игровой канал об играх на Vicetube. Моды, гайды, обзоры, прохождения на канале малохит шоу.",
+    "avatar": "avatars/channels10_profile.jpg",
+    "banner": "baners/channels10_banner.jpg"
+  },
+  {
+    "id": "The-Rest-Into-Vitality",
+    "name": "The Rest Into Vitality",
+    "description": " ",
+    "avatar": "avatars/channels6_profile.jpg",
+    "banner": "baners/channels6_banner.jpg"
+  },
+  {
+    "id": "SEDOVSKY",
+    "name": "SEDOVSKY",
+    "description": "Приветствую, я Седовский, делаю различные кино и игровые ролики, здесь вы найдёте историю падения Need For Speed, разбор концовок GTA V, анализ GTA Online, подробное объяснение, почему GTA IV одна из лучших ГТА,  обзоры забытых гонок, таких как Split/Second, Blur, гонки с лучшими повреждениями и не только.",
+    "avatar": "avatars/unnamed2.jpg",
+    "banner": "baners/unnamed2.jpg"
+  }
+]

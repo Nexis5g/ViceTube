@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>Загрузка видео — ViceTube</title>
+
+  <style>
+
+    body{
+      margin:0;
+
+      background:#0f0f0f;
+
+      color:white;
+
+      font-family:Arial;
+
+      display:flex;
+
+      justify-content:center;
+
+      align-items:center;
+
+      height:100vh;
+    }
+
+    .box{
+
+      background:#181818;
+
+      padding:40px;
+
+      border-radius:14px;
+
+      width:400px;
+    }
+
+    h1{
+      margin-bottom:25px;
+    }
+
+    input{
+
+      width:100%;
+      box-sizing:border-box;
+
+      padding:14px;
+
+      margin-bottom:15px;
+
+      border:none;
+
+      border-radius:8px;
+
+      background:#2a2a2a;
+
+      color:white;
+
+      font-size:16px;
+    }
+
+    button{
+
+      width:100%;
+      box-sizing:border-box;
+
+      padding:14px;
+
+      border:none;
+
+      border-radius:8px;
+
+      background:rgb(179, 0, 255);
+
+      color:white;
+
+      font-size:16px;
+
+      cursor:pointer;
+    }
+
+</style>
+  <link rel="icon" type="image/png" href="logo.png">
+</head>
+<body>
+
+<div class="box">
+
+  <h1>Загрузка видео</h1>
+
+  <input
+    type="text"
+    id="title"
+    placeholder="Название видео">
+
+  <input
+    type="text"
+    id="file"
+    placeholder="Имя файла в папке content, например Video.mp4">
+
+  <input
+    type="text"
+    id="hashtags"
+    placeholder="#игры, #обзоры, #развлекательное">
+
+  <button onclick="uploadVideo()">
+    Загрузить
+  </button>
+
+</div>
+
+<script>
+
+function normalizeHashtags(value){
+  return String(value || "")
+    .split(/[\s,;]+/)
+    .map(tag => tag.trim().replace(/^#+/, ""))
+    .filter(Boolean)
+    .map(tag => "#" + tag.toLowerCase())
+    .filter((tag, index, arr) => arr.indexOf(tag) === index);
+}
+
+function uploadVideo(){
+  const title=document.getElementById("title").value.trim();
+  const file=document.getElementById("file").value.trim();
+  const hashtags=normalizeHashtags(document.getElementById("hashtags").value);
+
+  if(!title || !file){
+    alert("Заполните название видео и имя файла.");
+    return;
+  }
+
+  let uploadedVideos=[];
+  try{
+    uploadedVideos=JSON.parse(localStorage.getItem("uploadedVideos")) || [];
+    if(!Array.isArray(uploadedVideos)) uploadedVideos=[];
+  }catch(e){ uploadedVideos=[]; }
+
+  let account=null;
+  try{account=JSON.parse(localStorage.getItem("account"));}catch(e){}
+  if(!account || !account.username){
+    alert("Сначала войдите в аккаунт.");
+    location.href="login.html";
+    return;
+  }
+  const channelId=account.channelId || account.username.toLowerCase().trim().replace(/[^a-z0-9а-яё]+/gi,"-").replace(/^-+|-+$/g,"") || "my-channel";
+  const newVideo={
+    id:Date.now(),
+    title:title,
+    file:"content/" + file.replace(/^content\//, ""),
+    hashtags:hashtags,
+    channelId:channelId,
+    channelName:account.channelName || account.username,
+    owner:account.username,
+    author:account.username
+  };
+
+  uploadedVideos.push(newVideo);
+  localStorage.setItem("uploadedVideos",JSON.stringify(uploadedVideos));
+
+  let jsonVideos=[];
+  fetch("videos.json",{cache:"no-store"})
+    .then(r=>r.ok ? r.json() : [])
+    .catch(()=>[])
+    .then(data=>{
+      jsonVideos=Array.isArray(data) ? data : [];
+      const updated=[...jsonVideos,newVideo];
+      const blob=new Blob([JSON.stringify(updated,null,2)],{type:"application/json;charset=utf-8"});
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement("a");
+      a.href=url;
+      a.download="videos.json";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      location.href="index.html";
+    });
+}
+
+</script>
+</body>
+</html>
